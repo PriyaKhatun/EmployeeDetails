@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Employee Form</title>
+  <style>
+    table {
+      margin-top: 20px;
+      border-collapse: collapse;
+      width: 100%;
+	  background-color: black;
+	  color: #ffffff;
+    }
+
+    th, td {
+      padding: 8px ;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    input[type="text"], select {
+      width: 100%;
+      padding: 12px  20px ;
+      margin: 4px 0;
+      box-sizing: border-box;
+    }
+
+    button {
+      padding: 12px 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Employee Form</h1>
+  <form id="employeeForm">
+    <label for="employeeName">Employee Name:</label>
+    <input type="text" id="employeeName" required>
+
+    <label for="employeeId">Employee ID:</label>
+    <input type="text" id="employeeId" required>
+
+    <label for="birthdate">Birthdate:</label>
+    <input type="text" id="birthdate" required>
+
+    <label for="gender">Gender:</label>
+    <select id="gender" required>
+      <option value="">Select Gender</option>
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+    </select>
+
+    <label for="mobileNumber">Mobile Number:</label>
+    <input type="text" id="mobileNumber" required>
+
+    <label for="department">Department:</label>
+    <select id="department" required>
+      <option value="">Select Department</option>
+      <option value="IT">IT</option>
+      <option value="HR">HR</option>
+      <option value="Management">Management</option>
+    </select>
+
+    <button type="button" onclick="saveEmployee()">Save</button>
+  </form>
+
+  <input type="text" id="filterInput" onkeyup="filterTable()" placeholder="Search">
+
+  <table id="employeeTable">
+    <thead>
+      <tr>
+        <th>Employee Name</th>
+        <th>Employee ID</th>
+        <th>Birthdate</th>
+        <th>Gender</th>
+        <th>Mobile Number</th>
+        <th>Department</th>
+      </tr>
+    </thead>
+    <tbody id="employeeTableBody"></tbody>
+  </table>
+
+  <script>
+    function saveEmployee() {
+      var employeeName = document.getElementById('employeeName').value;
+      var employeeId = document.getElementById('employeeId').value;
+      var birthdate = document.getElementById('birthdate').value;
+      var gender = document.getElementById('gender').value;
+      var mobileNumber = document.getElementById('mobileNumber').value;
+      var department = document.getElementById('department').value;
+
+      if (validateForm()) {
+        var newRow = document.createElement('tr');
+        newRow.innerHTML = '<td>' + employeeName + '</td>' +
+                           '<td>' + employeeId + '</td>' +
+                           '<td>' + birthdate + '</td>' +
+                           '<td>' + gender + '</td>' +
+                           '<td>' + mobileNumber + '</td>' +
+                           '<td>' + department + '</td>';
+        document.getElementById('employeeTableBody').appendChild(newRow);
+        resetForm();
+      }
+    }
+
+    function validateForm() {
+      var employeeName = document.getElementById('employeeName').value;
+      var employeeId = document.getElementById('employeeId').value;
+	  
+	  var birthdate = document.getElementById('birthday').value;
+	  
+	  var gender =  document.getElemenyById('gender').value;
+	  
+	  var mobileNumber = document.getElementById('mobileNumber').value;
+	  
+	  var department = document.getElementById('department').value;
+	  
+	 if(!employeeName || !employeeId || !birthdate || !gender || !mobilenNmber || !department)
+	  {
+	  alert('Fill All Details');
+	  
+	  return false;
+	  
+	  }
+	  
+	  return true;
+	  
+	  }
+	  
+	  function resetForm() {
+	      document.getElementById('employeeForm').reset()
+		  
+		  }
+		  
+		  function filterTable() {
+		  
+		  var input, filter, table, tr, td, i, txtValue;
+		  
+		  input = document.getElementById("filterInput");
+		  
+		  filter = input.value.toUpperCase();
+		  
+		  table = document.getElementByI("employeeTable");
+		  
+		  tr = table.getElementsByTagName("tr");
+		  
+		  for(i = 0; i < tr.length; i++) 
+		   {
+		   
+		   td = tr[i].getElementByTagName("td")[0];
+		   if(td) 
+		   
+		   {
+		   
+		   txtValue = td.textContent || td.innerText;
+		   
+		   if (txtValue.toUpperCase().indexOf(filter)
+		   
+		   tr[i].style.display = "";
+		   
+		   }
+		   else
+		   {
+		   
+		   tr[i].style.display = "none";
+		   
+		   
+		   }
+		   }
+		   }
+		   }
+		   
+		 $(document).ready(function() {
+      $('#mobileNumber').on('input', function() {
+        var num = $(this).val().replace(/[^0-9]/g, '');
+        if (num.length === 10) {
+          var formattedNum = num.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
+          $(this).val(formattedNum);
+        }
+      });
+	  
+	  
+  
+$('#birthdate').on('input', function() {
+        var date = $(this).val().replace(/[^0-9]/g, '');
+        if (date.length === 8) {
+          var formattedDate = date.replace(/(\d{2})(\d{2})(\d{4})/, '$1-$2-$3');
+          $(this).val(formattedDate);
+        }
+      });
+    });
+	
+	 </script>
+</body>
+</html>
